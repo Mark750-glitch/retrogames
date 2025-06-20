@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>NES Arcade Random - 50 Juegos en Español</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+      margin: 0;
+      background: #000;
+      color: #0f0;
+      font-family: 'Press Start 2P', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* Título neon */
+    h1 {
+      font-size: 36px;
+      color: #0ff;
+      text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #0ff,
+        0 0 80px #0ff;
+      animation: flicker 3s infinite;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px #0ff,
+          0 0 10px #0ff,
+          0 0 20px #0ff,
+          0 0 40px #0ff,
+          0 0 80px #0ff;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.6;
+        text-shadow: none;
+      }
+    }
+
+    /* Botón neon arcade */
+    #randomBtn {
+      margin: 20px;
+      padding: 18px 40px;
+      font-size: 20px;
+      color: #f00;
+      background: black;
+      border: 3px solid #f00;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px #f00,
+        inset 0 0 20px #f00;
+      transition: color 0.3s, box-shadow 0.3s;
+      user-select: none;
+      text-shadow: 0 0 5px #f00;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    #randomBtn:hover {
+      color: #fff;
+      box-shadow:
+        0 0 20px #f00,
+        0 0 30px #f00,
+        inset 0 0 30px #f00;
+      text-shadow:
+        0 0 20px #fff,
+        0 0 30px #f00;
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { box-shadow: 0 0 20px #f00, 0 0 30px #f00, inset 0 0 30px #f00; }
+      to { box-shadow: 0 0 40px #f00, 0 0 50px #f00, inset 0 0 50px #f00; }
+    }
+
+    #gameTitle {
+      color: #0ff;
+      font-size: 18px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #0ff;
+      min-height: 24px;
+      user-select: none;
+      font-weight: bold;
+    }
+
+    iframe {
+      width: 90%;
+      height: 600px;
+      border: 4px solid #0ff;
+      background: #111;
+      box-shadow: 0 0 15px #0ff;
+      margin-bottom: 30px;
+      border-radius: 8px;
+    }
+
+    footer {
+      margin-top: 10px;
+      font-size: 10px;
+      color: #555;
+      user-select: none;
+    }
+
+    /* Contenedor de imágenes retro */
+    #retroImages {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 900px;
+    }
+
+    #retroImages img {
+      width: 90px;
+      height: 90px;
+      image-rendering: pixelated;
+      border: 3px solid #0ff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0ff;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    #retroImages img:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px #0ff;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>🎮 NES Arcade Random 🎮</h1>
+  <button id="randomBtn">▶️ START</button>
+
+  <div id="gameTitle">Castlevania</div>
+
+  <iframe id="gameFrame"
+    src="https://www.retrogames.cc/embed/20903-castlevania-usa.html"
+    allowfullscreen>
+  </iframe>
+
+  <footer>Si un juego no carga, haz clic de nuevo.</footer>
+
+  
+
+  <script>
+    const games = [
+      { url: "https://www.retrogames.cc/embed/20903-castlevania-usa.html", title: "Castlevania" },
+      { url: "https://www.retrogames.cc/embed/17612-tetris-usa.html", title: "Tetris" },
+      { url: "https://www.retrogames.cc/embed/20714-dragon-s-lair-japan.html", title: "Dragon's Lair" },
+      { url: "https://www.retrogames.cc/embed/44942-super-mario-bros-3-beta-1-0.html", title: "Super Mario Bros 3" },
+      { url: "https://www.retrogames.cc/embed/42869-super-mario-3-crowned-koopapeach.html", title: "Super Mario 3 Crowned" },
+      { url: "https://www.retrogames.cc/embed/19220-mega-man-2-usa.html", title: "Mega Man 2" },
+      { url: "https://www.retrogames.cc/embed/20739-legend-of-zelda-usa.html", title: "La Leyenda de Zelda" },
+      { url: "https://www.retrogames.cc/embed/19227-mega-man-3-usa.html", title: "Mega Man 3" },
+      { url: "https://www.retrogames.cc/embed/19228-mega-man-4-usa.html", title: "Mega Man 4" },
+      { url: "https://www.retrogames.cc/embed/19229-mega-man-5-usa.html", title: "Mega Man 5" },
+      { url: "https://www.retrogames.cc/embed/19230-mega-man-6-usa.html", title: "Mega Man 6" },
+      { url: "https://www.retrogames.cc/embed/44927-super-mario-bros-2-usa.html", title: "Super Mario Bros 2" },
+      { url: "https://www.retrogames.cc/embed/39259-punch-out-wii-u-vc.html", title: "Punch-Out!!" },
+      { url: "https://www.retrogames.cc/embed/19231-mega-man-7-usa.html", title: "Mega Man 7" },
+      { url: "https://www.retrogames.cc/embed/18869-final-fantasy-usa.html", title: "Final Fantasy" },
+      { url: "https://www.retrogames.cc/embed/20902-castlevania-ii-simon-s-quest-usa.html", title: "Castlevania II: La Búsqueda de Simón" },
+      { url: "https://www.retrogames.cc/embed/19233-mega-man-8-usa.html", title: "Mega Man 8" },
+      { url: "https://www.retrogames.cc/embed/19234-mega-man-9-usa.html", title: "Mega Man 9" },
+      { url: "https://www.retrogames.cc/embed/19235-mega-man-10-usa.html", title: "Mega Man 10" },
+      { url: "https://www.retrogames.cc/embed/17615-super-mario-bros-usa.html", title: "Super Mario Bros" },
+      { url: "https://www.retrogames.cc/embed/20732-legend-of-zelda-2-usa.html", title: "La Leyenda de Zelda 2" },
+      { url: "https://www.retrogames.cc/embed/19361-bubble-bobble-usa.html", title: "Bubble Bobble" },
+      { url: "https://www.retrogames.cc/embed/19365-river-raid-usa.html", title: "River Raid" },
+      { url: "https://www.retrogames.cc/embed/19358-battletoads-usa.html", title: "Battletoads" },
+      { url: "https://www.retrogames.cc/embed/19224-duck-hunt-usa.html", title: "Duck Hunt" },
+      { url: "https://www.retrogames.cc/embed/17614-super-mario-bros-3-usa.html", title: "Super Mario Bros 3" },
+      { url: "https://www.retrogames.cc/embed/19360-bubble-bobble-2-usa.html", title: "Bubble Bobble 2" },
+      { url: "https://www.retrogames.cc/embed/17616-super-mario-bros-2-usa.html", title: "Super Mario Bros 2" },
+      { url: "https://www.retrogames.cc/embed/19359-bucky-o-hare-usa.html", title: "Bucky O'Hare" },
+      { url: "https://www.retrogames.cc/embed/17630-mario-usa.html", title: "Mario" },
+      { url: "https://www.retrogames.cc/embed/17632-mike-tyson-punch-out-usa.html", title: "Mike Tyson Punch-Out" },
+      { url: "https://www.retrogames.cc/embed/19236-mega-man-11-usa.html", title: "Mega Man 11" },
+      { url: "https://www.retrogames.cc/embed/17622-excitebike-usa.html", title: "Excitebike" },
+      { url: "https://www.retrogames.cc/embed/17620-donkey-kong-usa.html", title: "Donkey Kong" },
+      { url: "https://www.retrogames.cc/embed/17626-mario-bros-usa.html", title: "Mario Bros" },
+      { url: "https://www.retrogames.cc/embed/19225-mega-man-usa.html", title: "Mega Man" },
+      { url: "https://www.retrogames.cc/embed/17618-double-dragon-usa.html", title: "Double Dragon" },
+      { url: "https://www.retrogames.cc/embed/17619-double-dragon-2-usa.html", title: "Double Dragon 2" },
+      { url: "https://www.retrogames.cc/embed/17621-dr-mario-usa.html", title: "Dr. Mario" },
+      { url: "https://www.retrogames.cc/embed/19362-battletoads-double-dragon-usa.html", title: "Battletoads & Double Dragon" },
+      { url: "https://www.retrogames.cc/embed/17623-f-zero-usa.html", title: "F-Zero" },
+      { url: "https://www.retrogames.cc/embed/17624-f-15-strike-eagle-usa.html", title: "F-15 Strike Eagle" },
+      { url: "https://www.retrogames.cc/embed/19357-bionic-commando-usa.html", title: "Bionic Commando" },
+      { url: "https://www.retrogames.cc/embed/17628-mortal-kombat-usa.html", title: "Mortal Kombat" }
+    ];
+
+    const btn = document.getElementById("randomBtn");
+    const iframe = document.getElementById("gameFrame");
+    const gameTitle = document.getElementById("gameTitle");
+
+    btn.addEventListener("click", () => {
+      const randomIndex = Math.floor(Math.random() * games.length);
+      const randomGame = games[randomIndex];
+      iframe.src = randomGame.url;
+      gameTitle.textContent = randomGame.title;
+    });
+  </script>
+</body>
+</html>
